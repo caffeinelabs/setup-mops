@@ -12,8 +12,13 @@ jobs:
       matrix:
         mops-version: [0.41.1, latest]
         wasmtime-version: [24.0.0]
-        pocket-ic-version: [5.0.0]
         runner: [ubuntu-latest, macos-latest]
+        include:
+          # mops 3 rejects pocket-ic below 9.0.0
+          - mops-version: 0.41.1
+            pocket-ic-version: 5.0.0
+          - mops-version: latest
+            pocket-ic-version: 15.0.0
     runs-on: ${{ matrix.runner }}
     steps:
       - uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
